@@ -102,7 +102,11 @@ def FormatHTML(data):
         <style>
             body {
                 font-family: sans-serif;
-                font-size: 10px;
+                font-size: 12px;
+                background-color: #3F3F37;
+            }
+            h1 {
+                color: #EAF2EF;
             }
             ol.users {
                 list-style-type: none;
@@ -117,11 +121,23 @@ def FormatHTML(data):
                 padding: 0;
             }
             ol.messages li {
+                color: #D6D6B1;
                 margin-left: 1em;
-                font-size: 12px;
+                font-size: 16px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+            div {
+                background-color: #30292F;
+                margin: 2px;
+                padding: 12px;
+                border-radius: 12px;
             }
             span.username {
-                color: gray;
+                margin: 0 2px;
+                font-weight: bold;
+                color: #DD6E42;
             }
             span.date {
                 color: gray;
@@ -132,15 +148,20 @@ def FormatHTML(data):
         <h1>{{ input_basename }}</h1>
         <ol class="users">
         {% for user, messages in by_user %}
-            <li>
-            <span class="username">{{ user }}</span>
-            <span class="date">{{ messages[0][0] }}</span>
+          <li>
             <ol class="messages">
-            {% for message in messages %}
-                <li>{{ message[2] | e }}</li>
-            {% endfor %}
+              {% for message in messages %}
+                <ol>
+                    <div>
+                        <span class="username">{{ user }}</span>
+                        <span class="date">{{ message[0] }}</span>
+                        <li>{{ message[2] | e }}</li>
+                    </div>
+                </ol>
+              {% endfor %}
             </ol>
-            </li>
+            <br>
+          </li>
         {% endfor %}
         </ol>
     </body>
